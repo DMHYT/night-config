@@ -1,5 +1,5 @@
 // see root build.gradle
 
 dependencies {
-	implementation "com.typesafe:config:$typesafeConfigVersion"
+	compile "com.typesafe:config:$typesafeConfigVersion"
 }

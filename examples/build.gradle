@@ -12,14 +12,10 @@ repositories {
 }
 
 dependencies {
-	implementation project(':toml')
-	implementation project(':json')
+	compile project(':toml')
+	compile project(':json')
 }
 
 application {
-    mainClass = project.hasProperty("mainClass") ? project.getProperty("mainClass") : "NULL"
-
-	def workdir = new File(projectDir, "working_dir")
-	workdir.mkdir()
-	tasks.run.workingDir = workdir
+    mainClassName = project.hasProperty("mainClass") ? project.getProperty("mainClass") : "NULL"
 }

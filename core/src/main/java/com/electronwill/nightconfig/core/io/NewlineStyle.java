@@ -26,12 +26,6 @@ public enum NewlineStyle {
 	 */
 	public static NewlineStyle system() {
 		String systemNewline = System.getProperty("line.separator");
-		if (systemNewline.equals("\n")) {
-			return UNIX;
-		} else if (systemNewline.equals("\r\n")) {
-			return WINDOWS;
-		} else {
-			throw new IllegalArgumentException("Unknown system line separator '" + systemNewline + "'. The NewlineStyle enum only supports LF and CRLF.");
-		}
+		return (systemNewline.equals("\r\n")) ? WINDOWS : UNIX;
 	}
 }

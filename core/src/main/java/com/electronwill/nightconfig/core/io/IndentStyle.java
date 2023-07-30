@@ -21,12 +21,7 @@ public enum IndentStyle {
 	/**
 	 * 1 indent = 8 spaces
 	 */
-	SPACES_8(' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '),
-
-	/**
-	 * No identation.
-	 */
-	NONE();
+	SPACES_8(' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
 
 	public final char[] chars;
 
