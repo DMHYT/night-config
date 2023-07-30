@@ -1,0 +1,21 @@
+{
+    "files.exclude": {
+        ".gradle": true,
+        "**/bin/": true,
+        "*.gradle": true,
+        ".editorconfig": true,
+        ".gitattributes": true,
+        ".gitignore": true,
+        ".travis.yml": true,
+        "*.md": true,
+        "gradlew": true,
+        "gradle.properties": true,
+        "gradlew.bat": true,
+        "LICENSE": true,
+        "*.png": true,
+        "**/build/classes/": true,
+        "**/build/docs/": true,
+        "**/build/generated/": true,
+        "**/build/tmp/": true
+    }
+}
