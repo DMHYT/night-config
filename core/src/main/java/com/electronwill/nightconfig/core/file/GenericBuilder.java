@@ -46,7 +46,7 @@ public abstract class GenericBuilder<Base extends Config, Result extends FileCon
 	protected boolean insertionOrder = Config.isInsertionOrderPreserved();
 	protected Supplier<Map<String, Object>> mapCreator = null;
 
-	GenericBuilder(Path file, ConfigFormat<? extends Base> format) {
+	public GenericBuilder(Path file, ConfigFormat<? extends Base> format) {
 		this.file = file;
 		this.format = format;
 		this.writer = format.createWriter();

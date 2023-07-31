@@ -22,15 +22,15 @@
  	 *
  	 * @throws IOException if an IO error occurs
  	 */
--	boolean run(Path file, ConfigFormat<?> configFormat) throws IOException;
-+	boolean run(File file, ConfigFormat<?> configFormat) throws IOException;
+-	public boolean run(Path file, ConfigFormat<?> configFormat) throws IOException;
++	public boolean run(File file, ConfigFormat<?> configFormat) throws IOException;
  
  	// --- Static members ---
  
 @@ -37,7 +32,7 @@
  	};
- 	FileNotFoundAction READ_NOTHING = (f,c) -> false;
- 	FileNotFoundAction THROW_ERROR = (f,c) -> {
+ 	public FileNotFoundAction READ_NOTHING = (f,c) -> false;
+ 	public FileNotFoundAction THROW_ERROR = (f,c) -> {
 -		throw new NoSuchFileException(f.toAbsolutePath().toString());
 +		throw new FileNotFoundException(f.toString());
  	};
@@ -39,7 +39,7 @@
 @@ -60,21 +55,6 @@
  	 * @return a FileNotFoundAction that copies the file's data if the file is not found
  	 */
- 	static FileNotFoundAction copyData(File file) {
+ 	public static FileNotFoundAction copyData(File file) {
 -		// copyData(new FIS(file)) isn't used here to avoid dealing with the exception
 -		// declared by the FIS constructor
 -		return (f,c) -> {
@@ -54,7 +54,7 @@
 -	 * @param file the data url
 -	 * @return a FileNotFoundAction that copies the file's data if the file is not found
 -	 */
--	static FileNotFoundAction copyData(Path file) {
+-	public static FileNotFoundAction copyData(Path file) {
  		return (f,c) -> {
  			Files.copy(file, f);
  			return true;

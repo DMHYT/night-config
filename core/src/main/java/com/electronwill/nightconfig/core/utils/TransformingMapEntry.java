@@ -14,12 +14,12 @@ import java.util.function.Function;
  * @author TheElectronWill
  * @see TransformingMap
  */
-final class TransformingMapEntry<K, InternalV, ExternalV> implements Map.Entry<K, ExternalV> {
+public final class TransformingMapEntry<K, InternalV, ExternalV> implements Map.Entry<K, ExternalV> {
 	private final Function<? super InternalV, ? extends ExternalV> readTransformation;
 	private final Function<? super ExternalV, ? extends InternalV> writeTransformation;
 	private final Map.Entry<K, InternalV> internalEntry;
 
-	TransformingMapEntry(Map.Entry<K, InternalV> internalEntry,
+	public TransformingMapEntry(Map.Entry<K, InternalV> internalEntry,
 						 Function<? super InternalV, ? extends ExternalV> readTransformation,
 						 Function<? super ExternalV, ? extends InternalV> writeTransformation) {
 		this.readTransformation = readTransformation;

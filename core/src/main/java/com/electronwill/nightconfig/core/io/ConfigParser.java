@@ -23,7 +23,7 @@ public interface ConfigParser<C extends Config> {
 	/**
 	 * @return the format supported by this parser
 	 */
-	ConfigFormat<C> getFormat();
+	public ConfigFormat<C> getFormat();
 
 	/**
 	 * Parses a configuration.
@@ -33,7 +33,7 @@ public interface ConfigParser<C extends Config> {
 	 *
 	 * @throws ParsingException if an error occurs
 	 */
-	C parse(Reader reader);
+	public C parse(Reader reader);
 
 	/**
 	 * Parses a configuration.
@@ -41,7 +41,7 @@ public interface ConfigParser<C extends Config> {
 	 * @param reader      the reader to parse
 	 * @param destination the config where to put the data
 	 */
-	void parse(Reader reader, Config destination, ParsingMode parsingMode);
+	public void parse(Reader reader, Config destination, ParsingMode parsingMode);
 
 	/**
 	 * Parses a configuration String.
@@ -51,7 +51,7 @@ public interface ConfigParser<C extends Config> {
 	 *
 	 * @throws ParsingException if an error occurs
 	 */
-	default C parse(String input) {
+	public default C parse(String input) {
 		return parse(new FastStringReader(input));
 	}
 
@@ -62,7 +62,7 @@ public interface ConfigParser<C extends Config> {
 	 * @param destination the config where to put the data
 	 * @throws ParsingException if an error occurs
 	 */
-	default void parse(String input, Config destination, ParsingMode parsingMode) {
+	public default void parse(String input, Config destination, ParsingMode parsingMode) {
 		parse(new StringReader(input), destination, parsingMode);
 	}
 
@@ -74,7 +74,7 @@ public interface ConfigParser<C extends Config> {
 	 *
 	 * @throws ParsingException if an error occurs
 	 */
-	default C parse(InputStream input) {
+	public default C parse(InputStream input) {
 		return parse(input, StandardCharsets.UTF_8);
 	}
 
@@ -86,7 +86,7 @@ public interface ConfigParser<C extends Config> {
 	 *
 	 * @throws ParsingException if an error occurs
 	 */
-	default C parse(InputStream input, Charset charset) {
+	public default C parse(InputStream input, Charset charset) {
 		return parse(new BufferedReader(new InputStreamReader(input, charset)));
 	}
 
@@ -97,7 +97,7 @@ public interface ConfigParser<C extends Config> {
 	 * @param destination the config where to put the data
 	 * @throws ParsingException if an error occurs
 	 */
-	default void parse(InputStream input, Config destination, ParsingMode parsingMode) {
+	public default void parse(InputStream input, Config destination, ParsingMode parsingMode) {
 		parse(input, destination, parsingMode, StandardCharsets.UTF_8);
 	}
 
@@ -108,7 +108,7 @@ public interface ConfigParser<C extends Config> {
 	 * @param destination the config where to put the data
 	 * @throws ParsingException if an error occurs
 	 */
-	default void parse(InputStream input, Config destination, ParsingMode parsingMode, Charset charset) {
+	public default void parse(InputStream input, Config destination, ParsingMode parsingMode, Charset charset) {
 		Reader reader = new BufferedReader(new InputStreamReader(input, charset));
 		parse(reader, destination, parsingMode);
 	}
@@ -121,7 +121,7 @@ public interface ConfigParser<C extends Config> {
 	 *
 	 * @throws ParsingException if an error occurs
 	 */
-	default C parse(File file, FileNotFoundAction nefAction) {
+	public default C parse(File file, FileNotFoundAction nefAction) {
 		return parse(file, nefAction, StandardCharsets.UTF_8);
 	}
 
@@ -133,7 +133,7 @@ public interface ConfigParser<C extends Config> {
 	 *
 	 * @throws ParsingException if an error occurs
 	 */
-	default C parse(File file, FileNotFoundAction nefAction, Charset charset) {
+	public default C parse(File file, FileNotFoundAction nefAction, Charset charset) {
 		return parse(file.toPath(), nefAction, charset);
 	}
 
@@ -144,7 +144,7 @@ public interface ConfigParser<C extends Config> {
 	 * @param destination the config where to put the data
 	 * @throws ParsingException if an error occurs
 	 */
-	default void parse(File file, Config destination, ParsingMode parsingMode, FileNotFoundAction nefAction) {
+	public default void parse(File file, Config destination, ParsingMode parsingMode, FileNotFoundAction nefAction) {
 		parse(file, destination, parsingMode, nefAction, StandardCharsets.UTF_8);
 	}
 
@@ -155,7 +155,7 @@ public interface ConfigParser<C extends Config> {
 	 * @param destination the config where to put the data
 	 * @throws ParsingException if an error occurs
 	 */
-	default void parse(File file, Config destination, ParsingMode parsingMode,
+	public default void parse(File file, Config destination, ParsingMode parsingMode,
 					   FileNotFoundAction nefAction, Charset charset) {
 		parse(file.toPath(), destination, parsingMode, nefAction, charset);
 	}
@@ -167,7 +167,7 @@ public interface ConfigParser<C extends Config> {
 	 * @return a Config
 	 * @throws ParsingException if an error occurs
 	 */
-	default C parse(Path file, FileNotFoundAction nefAction) {
+	public default C parse(Path file, FileNotFoundAction nefAction) {
 		return parse(file, nefAction, StandardCharsets.UTF_8);
 	}
 
@@ -178,7 +178,7 @@ public interface ConfigParser<C extends Config> {
 	 * @return a Config
 	 * @throws ParsingException if an error occurs
 	 */
-	default C parse(Path file, FileNotFoundAction nefAction, Charset charset) {
+	public default C parse(Path file, FileNotFoundAction nefAction, Charset charset) {
 		try {
 			if(Files.notExists(file) && !nefAction.run(file, getFormat())) {
 				return getFormat().createConfig();
@@ -198,7 +198,7 @@ public interface ConfigParser<C extends Config> {
 	 * @param destination the config where to put the data
 	 * @throws ParsingException if an error occurs
 	 */
-	default void parse(Path file, Config destination, ParsingMode parsingMode, FileNotFoundAction nefAction) {
+	public default void parse(Path file, Config destination, ParsingMode parsingMode, FileNotFoundAction nefAction) {
 		parse(file, destination, parsingMode, nefAction, StandardCharsets.UTF_8);
 	}
 
@@ -209,7 +209,7 @@ public interface ConfigParser<C extends Config> {
 	 * @param destination the config where to put the data
 	 * @throws ParsingException if an error occurs
 	 */
-	default void parse(Path file, Config destination, ParsingMode parsingMode,
+	public default void parse(Path file, Config destination, ParsingMode parsingMode,
 					   FileNotFoundAction nefAction, Charset charset) {
 		try {
 			if (Files.notExists(file) && !nefAction.run(file, getFormat())) {
@@ -231,7 +231,7 @@ public interface ConfigParser<C extends Config> {
 	 *
 	 * @throws ParsingException if an error occurs
 	 */
-	default C parse(URL url) {
+	public default C parse(URL url) {
 		URLConnection connection;
 		try {
 			connection = url.openConnection();
@@ -254,7 +254,7 @@ public interface ConfigParser<C extends Config> {
 	 * @param destination the config where to put the data
 	 * @throws ParsingException if an error occurs
 	 */
-	default void parse(URL url, Config destination, ParsingMode parsingMode) {
+	public default void parse(URL url, Config destination, ParsingMode parsingMode) {
 		URLConnection connection;
 		try {
 			connection = url.openConnection();

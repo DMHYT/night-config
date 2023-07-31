@@ -2,7 +2,7 @@
     "files.exclude": {
         ".gradle": true,
         "**/bin/": true,
-        "*.gradle": true,
+        "**/*.gradle": true,
         ".editorconfig": true,
         ".gitattributes": true,
         ".gitignore": true,
@@ -16,6 +16,7 @@
         "**/build/classes/": true,
         "**/build/docs/": true,
         "**/build/generated/": true,
-        "**/build/tmp/": true
+        "**/build/tmp/": true,
+        "android/**/src/": true
     }
 }

@@ -12,7 +12,7 @@ import java.util.function.Supplier;
  *
  * @author TheElectronWill
  */
-final class SimpleCommentedConfig extends AbstractCommentedConfig {
+public final class SimpleCommentedConfig extends AbstractCommentedConfig {
 	private final ConfigFormat<?> configFormat;
 
 	/**
@@ -20,7 +20,7 @@ final class SimpleCommentedConfig extends AbstractCommentedConfig {
 	 *
 	 * @param configFormat the config's format
 	 */
-	SimpleCommentedConfig(ConfigFormat<?> configFormat, boolean concurrent) {
+	public SimpleCommentedConfig(ConfigFormat<?> configFormat, boolean concurrent) {
 		super(concurrent ? new ConcurrentHashMap<>() : new HashMap<>());
 		this.configFormat = configFormat;
 	}
@@ -29,7 +29,7 @@ final class SimpleCommentedConfig extends AbstractCommentedConfig {
 	 * Creates a SimpleCommentedConfig with the specified data and format. The map is used as it is and
 	 * isn't copied.
 	 */
-	SimpleCommentedConfig(Map<String, Object> valueMap, ConfigFormat<?> configFormat) {
+	public SimpleCommentedConfig(Map<String, Object> valueMap, ConfigFormat<?> configFormat) {
 		super(valueMap);
 		this.configFormat = configFormat;
 	}
@@ -40,7 +40,7 @@ final class SimpleCommentedConfig extends AbstractCommentedConfig {
 	 * @param mapCreator the supplier for backing maps
 	 * @param configFormat the config's format
 	 */
-	SimpleCommentedConfig(Supplier<Map<String, Object>> mapCreator, ConfigFormat<?> configFormat) {
+	public SimpleCommentedConfig(Supplier<Map<String, Object>> mapCreator, ConfigFormat<?> configFormat) {
 		super(mapCreator);
 		this.configFormat = configFormat;
 	}
@@ -51,7 +51,7 @@ final class SimpleCommentedConfig extends AbstractCommentedConfig {
 	 * @param toCopy       the config to copy
 	 * @param configFormat the config's format
 	 */
-	SimpleCommentedConfig(UnmodifiableConfig toCopy, ConfigFormat<?> configFormat,
+	public SimpleCommentedConfig(UnmodifiableConfig toCopy, ConfigFormat<?> configFormat,
 						  boolean concurrent) {
 		super(toCopy, concurrent);
 		this.configFormat = configFormat;
@@ -76,7 +76,7 @@ final class SimpleCommentedConfig extends AbstractCommentedConfig {
 	 * @param toCopy       the config to copy
 	 * @param configFormat the config's format
 	 */
-	SimpleCommentedConfig(UnmodifiableCommentedConfig toCopy, ConfigFormat<?> configFormat,
+	public SimpleCommentedConfig(UnmodifiableCommentedConfig toCopy, ConfigFormat<?> configFormat,
 						  boolean concurrent) {
 		super(toCopy, concurrent);
 		this.configFormat = configFormat;

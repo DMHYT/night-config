@@ -6,7 +6,7 @@ import java.util.Map;
  * @author TheElectronWill
  */
 public final class ObservedEntry<K, V> extends AbstractObserved implements Map.Entry<K, V> {
-	final Map.Entry<K, V> entry;
+	public final Map.Entry<K, V> entry;
 
 	protected ObservedEntry(Map.Entry<K, V> entry, Runnable callback) {
 		super(callback);

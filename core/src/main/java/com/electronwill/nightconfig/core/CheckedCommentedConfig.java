@@ -15,7 +15,7 @@ import java.util.Set;
  *
  * @author TheElectronWill
  */
-class CheckedCommentedConfig extends CommentedConfigWrapper<CommentedConfig>
+public class CheckedCommentedConfig extends CommentedConfigWrapper<CommentedConfig>
 		implements CommentedConfig {
 	/**
 	 * Creates a new CheckedConfig around a commented configuration.
@@ -24,7 +24,7 @@ class CheckedCommentedConfig extends CommentedConfigWrapper<CommentedConfig>
 	 *
 	 * @param config the configuration to wrap
 	 */
-	CheckedCommentedConfig(CommentedConfig config) {
+	public CheckedCommentedConfig(CommentedConfig config) {
 		super(config);
 		config.valueMap().forEach((k, v) -> checkValue(v));
 		//The config might already contain some elements and we must be sure that they are all supported

@@ -9,11 +9,11 @@ import java.nio.file.Path;
 /**
  * @author TheElectronWill
  */
-class SimpleCommentedFileConfig extends CommentedConfigWrapper<CommentedConfig>
+public class SimpleCommentedFileConfig extends CommentedConfigWrapper<CommentedConfig>
 		implements CommentedFileConfig {
 	private final FileConfig fileConfig;
 
-	SimpleCommentedFileConfig(CommentedConfig config, FileConfig fileConfig) {
+	public SimpleCommentedFileConfig(CommentedConfig config, FileConfig fileConfig) {
 		super(config);
 		this.fileConfig = fileConfig;
 	}

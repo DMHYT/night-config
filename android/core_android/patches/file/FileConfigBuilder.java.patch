@@ -14,8 +14,8 @@
   */
  public class FileConfigBuilder extends GenericBuilder<Config, FileConfig> {
  
--	FileConfigBuilder(Path file, ConfigFormat<? extends Config> format) {
-+	FileConfigBuilder(File file, ConfigFormat<? extends Config> format) {
+-	public FileConfigBuilder(Path file, ConfigFormat<? extends Config> format) {
++	public FileConfigBuilder(File file, ConfigFormat<? extends Config> format) {
  		super(file, format);
  	}
  

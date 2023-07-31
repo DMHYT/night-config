@@ -17,7 +17,7 @@
 -	 *
  	 * @throws ParsingException if an error occurs
  	 */
- 	default C parse(File file, FileNotFoundAction nefAction) {
+ 	public default C parse(File file, FileNotFoundAction nefAction) {
 @@ -130,55 +128,9 @@
  	 *
  	 * @param file the file to parse
@@ -25,7 +25,7 @@
 -	 *
  	 * @throws ParsingException if an error occurs
  	 */
- 	default C parse(File file, FileNotFoundAction nefAction, Charset charset) {
+ 	public default C parse(File file, FileNotFoundAction nefAction, Charset charset) {
 -		return parse(file.toPath(), nefAction, charset);
 -	}
 -
@@ -36,7 +36,7 @@
 -	 * @param destination the config where to put the data
 -	 * @throws ParsingException if an error occurs
 -	 */
--	default void parse(File file, Config destination, ParsingMode parsingMode, FileNotFoundAction nefAction) {
+-	public default void parse(File file, Config destination, ParsingMode parsingMode, FileNotFoundAction nefAction) {
 -		parse(file, destination, parsingMode, nefAction, StandardCharsets.UTF_8);
 -	}
 -
@@ -47,7 +47,7 @@
 -	 * @param destination the config where to put the data
 -	 * @throws ParsingException if an error occurs
 -	 */
--	default void parse(File file, Config destination, ParsingMode parsingMode,
+-	public default void parse(File file, Config destination, ParsingMode parsingMode,
 -					   FileNotFoundAction nefAction, Charset charset) {
 -		parse(file.toPath(), destination, parsingMode, nefAction, charset);
 -	}
@@ -59,7 +59,7 @@
 -	 * @return a Config
 -	 * @throws ParsingException if an error occurs
 -	 */
--	default C parse(Path file, FileNotFoundAction nefAction) {
+-	public default C parse(Path file, FileNotFoundAction nefAction) {
 -		return parse(file, nefAction, StandardCharsets.UTF_8);
 -	}
 -
@@ -70,7 +70,7 @@
 -	 * @return a Config
 -	 * @throws ParsingException if an error occurs
 -	 */
--	default C parse(Path file, FileNotFoundAction nefAction, Charset charset) {
+-	public default C parse(Path file, FileNotFoundAction nefAction, Charset charset) {
  		try {
  			if(Files.notExists(file) && !nefAction.run(file, getFormat())) {
  				return getFormat().createConfig();
@@ -83,8 +83,8 @@
  	 * @param destination the config where to put the data
  	 * @throws ParsingException if an error occurs
  	 */
--	default void parse(Path file, Config destination, ParsingMode parsingMode, FileNotFoundAction nefAction) {
-+	default void parse(File file, Config destination, ParsingMode parsingMode, FileNotFoundAction nefAction) {
+-	public default void parse(Path file, Config destination, ParsingMode parsingMode, FileNotFoundAction nefAction) {
++	public default void parse(File file, Config destination, ParsingMode parsingMode, FileNotFoundAction nefAction) {
  		parse(file, destination, parsingMode, nefAction, StandardCharsets.UTF_8);
  	}
  
@@ -96,8 +96,8 @@
  	 * @param destination the config where to put the data
  	 * @throws ParsingException if an error occurs
  	 */
--	default void parse(Path file, Config destination, ParsingMode parsingMode,
-+	default void parse(File file, Config destination, ParsingMode parsingMode,
+-	public default void parse(Path file, Config destination, ParsingMode parsingMode,
++	public default void parse(File file, Config destination, ParsingMode parsingMode,
  					   FileNotFoundAction nefAction, Charset charset) {
  		try {
  			if (Files.notExists(file) && !nefAction.run(file, getFormat())) {

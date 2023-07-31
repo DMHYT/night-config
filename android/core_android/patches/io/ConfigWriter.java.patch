@@ -24,8 +24,8 @@
 +	 * @param file the file to write it to
  	 * @throws WritingException if an error occurs
  	 */
--	default void write(UnmodifiableConfig config, Path file, WritingMode writingMode) {
-+	default void write(UnmodifiableConfig config, File file, WritingMode writingMode) {
+-	public default void write(UnmodifiableConfig config, Path file, WritingMode writingMode) {
++	public default void write(UnmodifiableConfig config, File file, WritingMode writingMode) {
  		write(config, file, writingMode, StandardCharsets.UTF_8);
  	}
  
@@ -37,7 +37,7 @@
 +	 * @param file the file to write it to
  	 * @throws WritingException if an error occurs
  	 */
--	default void write(UnmodifiableConfig config, Path file, WritingMode writingMode, Charset charset) {
+-	public default void write(UnmodifiableConfig config, Path file, WritingMode writingMode, Charset charset) {
 -		StandardOpenOption[] options;
 -		if (writingMode == WritingMode.APPEND) {
 -			options = new StandardOpenOption[] { WRITE, CREATE, APPEND };
@@ -45,7 +45,7 @@
 -			options = new StandardOpenOption[] { WRITE, CREATE, TRUNCATE_EXISTING };
 -		}
 -		try (OutputStream output = Files.newOutputStream(file, options)) {
-+	default void write(UnmodifiableConfig config, File file, WritingMode writingMode, Charset charset) {
++	public default void write(UnmodifiableConfig config, File file, WritingMode writingMode, Charset charset) {
 +		boolean append = (writingMode == WritingMode.APPEND);
 +		boolean create = true;
 +		try (OutputStream output = Files.newOutputStream(file, create, append)) {
@@ -63,7 +63,7 @@
 -	 * @param file   the file to write it to
 -	 * @throws WritingException if an error occurs
 -	 */
--	default void write(UnmodifiableConfig config, File file, WritingMode writingMode) {
+-	public default void write(UnmodifiableConfig config, File file, WritingMode writingMode) {
 -		write(config, file, writingMode, StandardCharsets.UTF_8);
 -	}
 -
@@ -74,7 +74,7 @@
 -	 * @param file   the file to write it to
 -	 * @throws WritingException if an error occurs
 -	 */
--	default void write(UnmodifiableConfig config, File file, WritingMode writingMode, Charset charset) {
+-	public default void write(UnmodifiableConfig config, File file, WritingMode writingMode, Charset charset) {
 -		write(config, file.toPath(), writingMode, charset);
 -	}
 -

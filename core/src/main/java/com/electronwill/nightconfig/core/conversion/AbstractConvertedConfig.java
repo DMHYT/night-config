@@ -14,13 +14,13 @@ import java.util.function.Predicate;
  * @author TheElectronWill
  */
 @SuppressWarnings("unchecked")
-abstract class AbstractConvertedConfig<C extends Config> extends ConfigWrapper<C>
+public abstract class AbstractConvertedConfig<C extends Config> extends ConfigWrapper<C>
 		implements Config {
-	final Function<Object, Object> readConversion, writeConversion;
-	final Predicate<Class<?>> supportPredicate;
-	final ConfigFormat<?> format;
+	public final Function<Object, Object> readConversion, writeConversion;
+	public final Predicate<Class<?>> supportPredicate;
+	public final ConfigFormat<?> format;
 
-	AbstractConvertedConfig(C config, Function<Object, Object> readConversion,
+	public AbstractConvertedConfig(C config, Function<Object, Object> readConversion,
 							Function<Object, Object> writeConversion,
 							Predicate<Class<?>> supportPredicate) {
 		super(config);

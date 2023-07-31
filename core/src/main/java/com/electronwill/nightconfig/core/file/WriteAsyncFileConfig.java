@@ -20,7 +20,7 @@ import static java.nio.file.StandardOpenOption.*;
 /**
  * @author TheElectronWill
  */
-final class WriteAsyncFileConfig<C extends Config> extends ConfigWrapper<C> implements FileConfig {
+public final class WriteAsyncFileConfig<C extends Config> extends ConfigWrapper<C> implements FileConfig {
 	private final Path nioPath;
 	private final Charset charset;
 	/**
@@ -52,7 +52,7 @@ final class WriteAsyncFileConfig<C extends Config> extends ConfigWrapper<C> impl
 	private final FileNotFoundAction nefAction;
 	private final ParsingMode parsingMode;
 
-	WriteAsyncFileConfig(C config, Path nioPath, Charset charset, ConfigWriter writer,
+	public WriteAsyncFileConfig(C config, Path nioPath, Charset charset, ConfigWriter writer,
 						 WritingMode writingMode, ConfigParser<?> parser,
 						 ParsingMode parsingMode, FileNotFoundAction nefAction) {
 		super(config);

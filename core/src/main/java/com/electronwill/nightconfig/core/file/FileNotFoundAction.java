@@ -26,17 +26,17 @@ public interface FileNotFoundAction {
 	 *
 	 * @throws IOException if an IO error occurs
 	 */
-	boolean run(Path file, ConfigFormat<?> configFormat) throws IOException;
+	public boolean run(Path file, ConfigFormat<?> configFormat) throws IOException;
 
 	// --- Static members ---
 
-	FileNotFoundAction CREATE_EMPTY = (f,c) -> {
+	public FileNotFoundAction CREATE_EMPTY = (f,c) -> {
 		Files.createFile(f);
 		c.initEmptyFile(f);
 		return false;
 	};
-	FileNotFoundAction READ_NOTHING = (f,c) -> false;
-	FileNotFoundAction THROW_ERROR = (f,c) -> {
+	public FileNotFoundAction READ_NOTHING = (f,c) -> false;
+	public FileNotFoundAction THROW_ERROR = (f,c) -> {
 		throw new NoSuchFileException(f.toAbsolutePath().toString());
 	};
 
@@ -46,7 +46,7 @@ public interface FileNotFoundAction {
 	 * @param url the data url
 	 * @return a FileNotFoundAction that copies the url's data if the file is not found
 	 */
-	static FileNotFoundAction copyData(URL url) {
+	public static FileNotFoundAction copyData(URL url) {
 		return (f,c) -> {
 			Files.copy(url.openStream(), f);
 			return true;
@@ -59,7 +59,7 @@ public interface FileNotFoundAction {
 	 * @param file the data url
 	 * @return a FileNotFoundAction that copies the file's data if the file is not found
 	 */
-	static FileNotFoundAction copyData(File file) {
+	public static FileNotFoundAction copyData(File file) {
 		// copyData(new FIS(file)) isn't used here to avoid dealing with the exception
 		// declared by the FIS constructor
 		return (f,c) -> {
@@ -74,7 +74,7 @@ public interface FileNotFoundAction {
 	 * @param file the data url
 	 * @return a FileNotFoundAction that copies the file's data if the file is not found
 	 */
-	static FileNotFoundAction copyData(Path file) {
+	public static FileNotFoundAction copyData(Path file) {
 		return (f,c) -> {
 			Files.copy(file, f);
 			return true;
@@ -87,7 +87,7 @@ public interface FileNotFoundAction {
 	 * @param data the stream containing the data
 	 * @return a FileNotFoundAction that copies the stream's data if the file is not found
 	 */
-	static FileNotFoundAction copyData(InputStream data) {
+	public static FileNotFoundAction copyData(InputStream data) {
 		return (f,c) -> {
 			Files.copy(data, f);
 			return true;
@@ -102,7 +102,7 @@ public interface FileNotFoundAction {
 	 *
 	 * @see Class#getResource(String)
 	 */
-	static FileNotFoundAction copyResource(String resourcePath) {
+	public static FileNotFoundAction copyResource(String resourcePath) {
 		return copyData(FileNotFoundAction.class.getResource(resourcePath));
 	}
 }

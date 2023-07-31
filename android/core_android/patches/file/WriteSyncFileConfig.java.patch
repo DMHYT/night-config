@@ -9,7 +9,7 @@
  /**
   * @author TheElectronWill
   */
- final class WriteSyncFileConfig<C extends Config> extends ConfigWrapper<C> implements FileConfig {
+ public final class WriteSyncFileConfig<C extends Config> extends ConfigWrapper<C> implements FileConfig {
 -	private final Path nioPath;
 +	private final File nioPath;
  	private final Charset charset;
@@ -19,8 +19,8 @@
  
  	private volatile boolean currentlyWriting = false;
  
--	WriteSyncFileConfig(C config, Path nioPath, Charset charset, ConfigWriter writer,
-+	WriteSyncFileConfig(C config, File nioPath, Charset charset, ConfigWriter writer,
+-	public WriteSyncFileConfig(C config, Path nioPath, Charset charset, ConfigWriter writer,
++	public WriteSyncFileConfig(C config, File nioPath, Charset charset, ConfigWriter writer,
  						 WritingMode writingMode, ConfigParser<?> parser,
  						 ParsingMode parsingMode, FileNotFoundAction nefAction) {
  		super(config);

@@ -23,7 +23,7 @@ public interface Config extends UnmodifiableConfig {
 	 * @param <T>   the type of the old value
 	 * @return the old value if any, or {@code null}
 	 */
-	default <T> T set(String path, Object value) {
+	public default <T> T set(String path, Object value) {
 		return set(split(path, '.'), value);
 	}
 
@@ -35,7 +35,7 @@ public interface Config extends UnmodifiableConfig {
 	 * @param <T>   the type of the old value
 	 * @return the old value if any, or {@code null}
 	 */
-	<T> T set(List<String> path, Object value);
+	public <T> T set(List<String> path, Object value);
 
 	/**
 	 * Adds a config value. The value is set iff there is no value associated with the given path.
@@ -45,7 +45,7 @@ public interface Config extends UnmodifiableConfig {
 	 * @return true if the value has been added, false if a value is already associated with the
 	 * given path
 	 */
-	boolean add(List<String> path, Object value);
+	public boolean add(List<String> path, Object value);
 
 	/**
 	 * Adds a config value. The value is set iff there is no value associated with the given path.
@@ -55,7 +55,7 @@ public interface Config extends UnmodifiableConfig {
 	 * @return true if the value has been added, false if a value is already associated with the
 	 * given path
 	 */
-	default boolean add(String path, Object value) {
+	public default boolean add(String path, Object value) {
 		return add(split(path, '.'), value);
 	}
 
@@ -64,7 +64,7 @@ public interface Config extends UnmodifiableConfig {
 	 *
 	 * @param config the source config
 	 */
-	default void addAll(UnmodifiableConfig config) {
+	public default void addAll(UnmodifiableConfig config) {
 		for (UnmodifiableConfig.Entry ue : config.entrySet()) {
 			List<String> key = Collections.singletonList(ue.getKey());
 			Object value = ue.getRawValue();
@@ -81,7 +81,7 @@ public interface Config extends UnmodifiableConfig {
 	 *
 	 * @param config the source config
 	 */
-	default void putAll(UnmodifiableConfig config) {
+	public default void putAll(UnmodifiableConfig config) {
 		valueMap().putAll(config.valueMap());
 	}
 
@@ -92,7 +92,7 @@ public interface Config extends UnmodifiableConfig {
 	 * @param <T>  the type of the old value
 	 * @return the old value if any, or {@code null}
 	 */
-	default <T> T remove(String path) {
+	public default <T> T remove(String path) {
 		return remove(split(path, '.'));
 	}
 
@@ -103,21 +103,21 @@ public interface Config extends UnmodifiableConfig {
 	 * @param <T>  the type of the old value
 	 * @return the old value if any, or {@code null}
 	 */
-	<T> T remove(List<String> path);
+	public <T> T remove(List<String> path);
 
 	/**
 	 * Removes all the values of the given config from this config.
 	 *
 	 * @param config the values to remove
 	 */
-	default void removeAll(UnmodifiableConfig config) {
+	public default void removeAll(UnmodifiableConfig config) {
 		valueMap().keySet().removeAll(config.valueMap().keySet());
 	}
 
 	/**
 	 * Removes all values from the config.
 	 */
-	void clear();
+	public void clear();
 
 	/**
 	 * Returns an Unmodifiable view of the config. Any change to the original (modifiable) config
@@ -126,7 +126,7 @@ public interface Config extends UnmodifiableConfig {
 	 *
 	 * @return an Unmodifiable view of the config.
 	 */
-	default UnmodifiableConfig unmodifiable() {
+	public default UnmodifiableConfig unmodifiable() {
 		return new UnmodifiableConfig() {
 			@Override
 			public <T> T getRaw(List<String> path) {
@@ -169,7 +169,7 @@ public interface Config extends UnmodifiableConfig {
 	 *
 	 * @return a checked view of the config.
 	 */
-	default Config checked() {
+	public default Config checked() {
 		return new CheckedConfig(this);
 	}
 
@@ -177,19 +177,19 @@ public interface Config extends UnmodifiableConfig {
 	 * Returns a Map view of the config's values. Any change to the map is reflected in the config
 	 * and vice-versa.
 	 */
-	Map<String, Object> valueMap();
+	public Map<String, Object> valueMap();
 
 	/**
 	 * Returns a Set view of the config's entries. Any change to the set or to the entries is
 	 * reflected in the config, and vice-versa.
 	 */
 	@Override
-	Set<? extends Entry> entrySet();
+	public Set<? extends Entry> entrySet();
 
 	/**
 	 * A modifiable config entry.
 	 */
-	interface Entry extends UnmodifiableConfig.Entry {
+	public interface Entry extends UnmodifiableConfig.Entry {
 		/**
 		 * Sets the entry's value.
 		 *
@@ -197,7 +197,7 @@ public interface Config extends UnmodifiableConfig {
 		 * @param <T>   the type of the old value
 		 * @return the previous value
 		 */
-		<T> T setValue(Object value);
+		public <T> T setValue(Object value);
 	}
 
 	/**
@@ -206,7 +206,7 @@ public interface Config extends UnmodifiableConfig {
 	 *
 	 * @return a new sub config
 	 */
-	Config createSubConfig();
+	public Config createSubConfig();
 
 	//--- Scala convenience methods ---
 
@@ -217,7 +217,7 @@ public interface Config extends UnmodifiableConfig {
 	 * @param value the value to set
 	 * @see #set(String, Object)
 	 */
-	default void update(String path, Object value) {
+	public default void update(String path, Object value) {
 		set(path, value);
 	}
 
@@ -228,7 +228,7 @@ public interface Config extends UnmodifiableConfig {
 	 * @param value the value to set
 	 * @see #set(List, Object)
 	 */
-	default void update(List<String> path, Object value) {
+	public default void update(List<String> path, Object value) {
 		set(path, value);
 	}
 
@@ -240,7 +240,7 @@ public interface Config extends UnmodifiableConfig {
 	 * @param format the config's format
 	 * @return a new empty config
 	 */
-	static Config of(ConfigFormat<? extends Config> format) {
+	public static Config of(ConfigFormat<? extends Config> format) {
 		return new SimpleConfig(format, false);
 	}
 
@@ -254,7 +254,7 @@ public interface Config extends UnmodifiableConfig {
 	 * @param format the config's format
 	 * @return a new config backed by the map
 	 */
-	static Config of(Supplier<Map<String, Object>> mapCreator, ConfigFormat<?> format) {
+	public static Config of(Supplier<Map<String, Object>> mapCreator, ConfigFormat<?> format) {
 		return new SimpleConfig(mapCreator, format);
 	}
 
@@ -264,7 +264,7 @@ public interface Config extends UnmodifiableConfig {
 	 * @param format the config's format
 	 * @return a new empty, thread-safe config
 	 */
-	static Config ofConcurrent(ConfigFormat<? extends Config> format) {
+	public static Config ofConcurrent(ConfigFormat<? extends Config> format) {
 		return new SimpleConfig(format, true);
 	}
 
@@ -273,7 +273,7 @@ public interface Config extends UnmodifiableConfig {
 	 *
 	 * @return a new empty config
 	 */
-	static Config inMemory() {
+	public static Config inMemory() {
 		return InMemoryFormat.defaultInstance().createConfig();
 	}
 
@@ -282,7 +282,7 @@ public interface Config extends UnmodifiableConfig {
 	 *
 	 * @return a new empty config
 	 */
-	static Config inMemoryUniversal() {
+	public static Config inMemoryUniversal() {
 		return InMemoryFormat.withUniversalSupport().createConfig();
 	}
 
@@ -291,7 +291,7 @@ public interface Config extends UnmodifiableConfig {
 	 *
 	 * @return a new empty config
 	 */
-	static Config inMemoryConcurrent() {
+	public static Config inMemoryConcurrent() {
 		return InMemoryFormat.defaultInstance().createConcurrentConfig();
 	}
 
@@ -300,7 +300,7 @@ public interface Config extends UnmodifiableConfig {
 	 *
 	 * @return a new empty config
 	 */
-	static Config inMemoryUniversalConcurrent() {
+	public static Config inMemoryUniversalConcurrent() {
 		return InMemoryFormat.withUniversalSupport().createConcurrentConfig();
 	}
 
@@ -315,7 +315,7 @@ public interface Config extends UnmodifiableConfig {
 	 * @param format the config's format
 	 * @return a new config backed by the map
 	 */
-	static Config wrap(Map<String, Object> map, ConfigFormat<?> format) {
+	public static Config wrap(Map<String, Object> map, ConfigFormat<?> format) {
 		return new SimpleConfig(map, format);
 	}
 
@@ -326,7 +326,7 @@ public interface Config extends UnmodifiableConfig {
 	 * @param config the config to copy
 	 * @return a copy of the config
 	 */
-	static Config copy(UnmodifiableConfig config) {
+	public static Config copy(UnmodifiableConfig config) {
 		return new SimpleConfig(config, config.configFormat(), false);
 	}
 
@@ -343,7 +343,7 @@ public interface Config extends UnmodifiableConfig {
 	 * @param mapCreator a supplier which will be called to create all backing maps for this config (including sub-configs)
 	 * @return a copy of the config
 	 */
-	static Config copy(UnmodifiableConfig config, Supplier<Map<String, Object>> mapCreator) {
+	public static Config copy(UnmodifiableConfig config, Supplier<Map<String, Object>> mapCreator) {
 		return new SimpleConfig(config, mapCreator, config.configFormat());
 	}
 
@@ -354,7 +354,7 @@ public interface Config extends UnmodifiableConfig {
 	 * @param format the config's format
 	 * @return a copy of the config
 	 */
-	static Config copy(UnmodifiableConfig config, ConfigFormat<?> format) {
+	public static Config copy(UnmodifiableConfig config, ConfigFormat<?> format) {
 		return new SimpleConfig(config, format, false);
 	}
 
@@ -372,7 +372,7 @@ public interface Config extends UnmodifiableConfig {
 	 * @param format the config's format
 	 * @return a copy of the config
 	 */
-	static Config copy(UnmodifiableConfig config, Supplier<Map<String, Object>> mapCreator, ConfigFormat<?> format) {
+	public static Config copy(UnmodifiableConfig config, Supplier<Map<String, Object>> mapCreator, ConfigFormat<?> format) {
 		return new SimpleConfig(config, mapCreator, format);
 	}
 
@@ -383,7 +383,7 @@ public interface Config extends UnmodifiableConfig {
 	 * @param config the config to copy
 	 * @return a thread-safe copy of the config
 	 */
-	static Config concurrentCopy(UnmodifiableConfig config) {
+	public static Config concurrentCopy(UnmodifiableConfig config) {
 		return new SimpleConfig(config, config.configFormat(), true);
 	}
 
@@ -394,7 +394,7 @@ public interface Config extends UnmodifiableConfig {
 	 * @param format the config's format
 	 * @return a thread-safe copy of the config
 	 */
-	static Config concurrentCopy(UnmodifiableConfig config, ConfigFormat<?> format) {
+	public static Config concurrentCopy(UnmodifiableConfig config, ConfigFormat<?> format) {
 		return new SimpleConfig(config, format, true);
 	}
 
@@ -409,7 +409,7 @@ public interface Config extends UnmodifiableConfig {
 	 * @return true if the new configs preserve the insertion order of their values, false to
 	 *         give no guarantee about the values ordering.
 	 */
-	static boolean isInsertionOrderPreserved() {
+	public static boolean isInsertionOrderPreserved() {
 		String prop =  System.getProperty("nightconfig.preserveInsertionOrder");
 		return (prop != null) && (prop.equals("true") || prop.equals("1"));
 	}
@@ -425,7 +425,7 @@ public interface Config extends UnmodifiableConfig {
 	 *                       values, false to give no guarantee about the values ordering.
 	 * @see #isInsertionOrderPreserved()
 	 */
-	static void setInsertionOrderPreserved(boolean orderPreserved) {
+	public static void setInsertionOrderPreserved(boolean orderPreserved) {
 		System.setProperty("nightconfig.preserveInsertionOrder", orderPreserved ? "true" : "false");
 	}
 
@@ -436,7 +436,7 @@ public interface Config extends UnmodifiableConfig {
 	 * @param insertionOrderPreserved true to make the maps preserve the insertion order of values
 	 * @return a map supplier corresponding to the given settings
 	 */
-	static <T> Supplier<Map<String, T>> getDefaultMapCreator(boolean concurrent, boolean insertionOrderPreserved) {
+	public static <T> Supplier<Map<String, T>> getDefaultMapCreator(boolean concurrent, boolean insertionOrderPreserved) {
 		if (insertionOrderPreserved) {
 			return concurrent ? ()->Collections.synchronizedMap(new LinkedHashMap<>()) : LinkedHashMap::new;
 			// TODO find or make a ConcurrentMap that preserves the insertion order
@@ -452,7 +452,7 @@ public interface Config extends UnmodifiableConfig {
 	 * @param concurrent true to make the maps thread-safe
 	 * @return a map supplier corresponding to the given settings
 	 */
-	static <T> Supplier<Map<String, T>> getDefaultMapCreator(boolean concurrent) {
+	public static <T> Supplier<Map<String, T>> getDefaultMapCreator(boolean concurrent) {
 		return getDefaultMapCreator(concurrent, Config.isInsertionOrderPreserved());
 	}
 }

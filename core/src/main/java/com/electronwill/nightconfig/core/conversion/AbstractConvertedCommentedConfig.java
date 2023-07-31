@@ -13,7 +13,7 @@ import java.util.function.Predicate;
 /**
  * @author TheElectronWill
  */
-abstract class AbstractConvertedCommentedConfig<C extends CommentedConfig>
+public abstract class AbstractConvertedCommentedConfig<C extends CommentedConfig>
 		extends AbstractConvertedConfig<C> implements CommentedConfig {
 	public AbstractConvertedCommentedConfig(C config, Function<Object, Object> readConversion,
 											Function<Object, Object> writeConversion,

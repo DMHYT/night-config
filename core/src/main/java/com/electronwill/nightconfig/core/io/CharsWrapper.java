@@ -13,8 +13,8 @@ import java.util.Objects;
  * @author TheElectronWill
  */
 public final class CharsWrapper implements CharSequence, Cloneable, Iterable<Character> {
-	final char[] chars;
-	final int offset, limit;
+	public final char[] chars;
+	public final int offset, limit;
 
 	/**
 	 * Creates a new CharsWrapper backed by the given char array. Any modification to the array is

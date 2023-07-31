@@ -12,7 +12,7 @@ import java.nio.file.Paths;
  */
 public interface CommentedFileConfig extends CommentedConfig, FileConfig {
 	@Override
-	default CommentedFileConfig checked() {
+	public default CommentedFileConfig checked() {
 		return new CheckedCommentedFileConfig(this);
 	}
 
@@ -25,7 +25,7 @@ public interface CommentedFileConfig extends CommentedConfig, FileConfig {
 	 *
 	 * @throws NoFormatFoundException if the format detection fails
 	 */
-	static CommentedFileConfig of(File file) {
+	public static CommentedFileConfig of(File file) {
 		return of(file.toPath());
 	}
 
@@ -36,7 +36,7 @@ public interface CommentedFileConfig extends CommentedConfig, FileConfig {
 	 * @param format the config's format
 	 * @return a new FileConfig associated to the specified file
 	 */
-	static CommentedFileConfig of(File file, ConfigFormat<? extends CommentedConfig> format) {
+	public static CommentedFileConfig of(File file, ConfigFormat<? extends CommentedConfig> format) {
 		return of(file.toPath(), format);
 	}
 
@@ -49,7 +49,7 @@ public interface CommentedFileConfig extends CommentedConfig, FileConfig {
 	 *
 	 * @throws NoFormatFoundException if the format detection fails
 	 */
-	static CommentedFileConfig of(Path file) {
+	public static CommentedFileConfig of(Path file) {
 		ConfigFormat format = FormatDetector.detect(file);
 		if (format == null || !format.supportsComments()) {
 			throw new NoFormatFoundException("No suitable format for " + file.getFileName());
@@ -64,7 +64,7 @@ public interface CommentedFileConfig extends CommentedConfig, FileConfig {
 	 * @param format the config's format
 	 * @return a new FileConfig associated to the specified file
 	 */
-	static CommentedFileConfig of(Path file, ConfigFormat<? extends CommentedConfig> format) {
+	public static CommentedFileConfig of(Path file, ConfigFormat<? extends CommentedConfig> format) {
 		return builder(file, format).build();
 	}
 
@@ -77,7 +77,7 @@ public interface CommentedFileConfig extends CommentedConfig, FileConfig {
 	 *
 	 * @throws NoFormatFoundException if the format detection fails
 	 */
-	static CommentedFileConfig of(String filePath) {
+	public static CommentedFileConfig of(String filePath) {
 		return of(Paths.get(filePath));
 	}
 
@@ -88,7 +88,7 @@ public interface CommentedFileConfig extends CommentedConfig, FileConfig {
 	 * @param format   the config's format
 	 * @return a new FileConfig associated to the specified file
 	 */
-	static CommentedFileConfig of(String filePath, ConfigFormat<? extends CommentedConfig> format) {
+	public static CommentedFileConfig of(String filePath, ConfigFormat<? extends CommentedConfig> format) {
 		return of(Paths.get(filePath), format);
 	}
 
@@ -101,7 +101,7 @@ public interface CommentedFileConfig extends CommentedConfig, FileConfig {
 	 *
 	 * @throws NoFormatFoundException if the format detection fails
 	 */
-	static CommentedFileConfig ofConcurrent(File file) {
+	public static CommentedFileConfig ofConcurrent(File file) {
 		return ofConcurrent(file.toPath());
 	}
 
@@ -112,7 +112,7 @@ public interface CommentedFileConfig extends CommentedConfig, FileConfig {
 	 * @param format the config's format
 	 * @return a new thread-safe CommentedFileConfig associated to the specified file
 	 */
-	static CommentedFileConfig ofConcurrent(File file, ConfigFormat<? extends CommentedConfig> format) {
+	public static CommentedFileConfig ofConcurrent(File file, ConfigFormat<? extends CommentedConfig> format) {
 		return ofConcurrent(file.toPath(), format);
 	}
 
@@ -125,7 +125,7 @@ public interface CommentedFileConfig extends CommentedConfig, FileConfig {
 	 *
 	 * @throws NoFormatFoundException if the format detection fails
 	 */
-	static CommentedFileConfig ofConcurrent(Path file) {
+	public static CommentedFileConfig ofConcurrent(Path file) {
 		return builder(file).concurrent().build();
 	}
 
@@ -136,7 +136,7 @@ public interface CommentedFileConfig extends CommentedConfig, FileConfig {
 	 * @param format the config's format
 	 * @return a new thread-safe CommentedFileConfig associated to the specified file
 	 */
-	static CommentedFileConfig ofConcurrent(Path file, ConfigFormat<? extends CommentedConfig> format) {
+	public static CommentedFileConfig ofConcurrent(Path file, ConfigFormat<? extends CommentedConfig> format) {
 		return builder(file, format).concurrent().build();
 	}
 
@@ -147,7 +147,7 @@ public interface CommentedFileConfig extends CommentedConfig, FileConfig {
 	 * @param format   the config's format
 	 * @return a new thread-safe CommentedFileConfig associated to the specified file
 	 */
-	static CommentedFileConfig ofConcurrent(String filePath, ConfigFormat<? extends CommentedConfig> format) {
+	public static CommentedFileConfig ofConcurrent(String filePath, ConfigFormat<? extends CommentedConfig> format) {
 		return ofConcurrent(Paths.get(filePath), format);
 	}
 
@@ -160,7 +160,7 @@ public interface CommentedFileConfig extends CommentedConfig, FileConfig {
 	 *
 	 * @throws NoFormatFoundException if the format detection fails
 	 */
-	static CommentedFileConfig ofConcurrent(String filePath) {
+	public static CommentedFileConfig ofConcurrent(String filePath) {
 		return ofConcurrent(Paths.get(filePath));
 	}
 
@@ -172,7 +172,7 @@ public interface CommentedFileConfig extends CommentedConfig, FileConfig {
 	 * @return a new FileConfigBuilder that will build a CommentedFileConfig associated to the
 	 * specified file
 	 */
-	static CommentedFileConfigBuilder builder(File file, ConfigFormat<? extends CommentedConfig> format) {
+	public static CommentedFileConfigBuilder builder(File file, ConfigFormat<? extends CommentedConfig> format) {
 		return builder(file.toPath(), format);
 	}
 
@@ -186,7 +186,7 @@ public interface CommentedFileConfig extends CommentedConfig, FileConfig {
 	 *
 	 * @throws NoFormatFoundException if the format detection fails
 	 */
-	static CommentedFileConfigBuilder builder(File file) {
+	public static CommentedFileConfigBuilder builder(File file) {
 		return builder(file.toPath());
 	}
 
@@ -198,7 +198,7 @@ public interface CommentedFileConfig extends CommentedConfig, FileConfig {
 	 * @return a new FileConfigBuilder that will build a CommentedFileConfig associated to the
 	 * specified file
 	 */
-	static CommentedFileConfigBuilder builder(Path file, ConfigFormat<? extends CommentedConfig> format) {
+	public static CommentedFileConfigBuilder builder(Path file, ConfigFormat<? extends CommentedConfig> format) {
 		return new CommentedFileConfigBuilder(file, format);
 	}
 
@@ -212,7 +212,7 @@ public interface CommentedFileConfig extends CommentedConfig, FileConfig {
 	 *
 	 * @throws NoFormatFoundException if the format detection fails
 	 */
-	static CommentedFileConfigBuilder builder(Path file) {
+	public static CommentedFileConfigBuilder builder(Path file) {
 		ConfigFormat format = FormatDetector.detect(file);
 		if (format == null) {
 			throw new NoFormatFoundException("No suitable format for " + file.getFileName());
@@ -233,7 +233,7 @@ public interface CommentedFileConfig extends CommentedConfig, FileConfig {
 	 *
 	 * @throws NoFormatFoundException if the format detection fails
 	 */
-	static CommentedFileConfigBuilder builder(String filePath) {
+	public static CommentedFileConfigBuilder builder(String filePath) {
 		return builder(Paths.get(filePath));
 	}
 
@@ -245,7 +245,7 @@ public interface CommentedFileConfig extends CommentedConfig, FileConfig {
 	 * @return a new FileConfigBuilder that will build a CommentedFileConfig associated to the
 	 * specified file
 	 */
-	static CommentedFileConfigBuilder builder(String filePath, ConfigFormat<? extends CommentedConfig> format) {
+	public static CommentedFileConfigBuilder builder(String filePath, ConfigFormat<? extends CommentedConfig> format) {
 		return builder(Paths.get(filePath), format);
 	}
 }

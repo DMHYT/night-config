@@ -28,7 +28,7 @@ public interface ConfigWriter {
 	 * @param writer the writer to write it to
 	 * @throws WritingException if an error occurs
 	 */
-	void write(UnmodifiableConfig config, Writer writer);
+	public void write(UnmodifiableConfig config, Writer writer);
 
 	/**
 	 * Writes a configuration.
@@ -37,7 +37,7 @@ public interface ConfigWriter {
 	 * @param output the output to write it to
 	 * @throws WritingException if an error occurs
 	 */
-	default void write(UnmodifiableConfig config, OutputStream output, Charset charset) {
+	public default void write(UnmodifiableConfig config, OutputStream output, Charset charset) {
 		Writer writer = new BufferedWriter(new OutputStreamWriter(output, charset));
 		write(config, writer);
 		try {
@@ -54,7 +54,7 @@ public interface ConfigWriter {
 	 * @param output the output to write it to
 	 * @throws WritingException if an error occurs
 	 */
-	default void write(UnmodifiableConfig config, OutputStream output) {
+	public default void write(UnmodifiableConfig config, OutputStream output) {
 		write(config, output, StandardCharsets.UTF_8);
 	}
 
@@ -66,7 +66,7 @@ public interface ConfigWriter {
 	 * @param file the nio Path to write it to
 	 * @throws WritingException if an error occurs
 	 */
-	default void write(UnmodifiableConfig config, Path file, WritingMode writingMode) {
+	public default void write(UnmodifiableConfig config, Path file, WritingMode writingMode) {
 		write(config, file, writingMode, StandardCharsets.UTF_8);
 	}
 
@@ -77,7 +77,7 @@ public interface ConfigWriter {
 	 * @param file the nio Path to write it to
 	 * @throws WritingException if an error occurs
 	 */
-	default void write(UnmodifiableConfig config, Path file, WritingMode writingMode, Charset charset) {
+	public default void write(UnmodifiableConfig config, Path file, WritingMode writingMode, Charset charset) {
 		StandardOpenOption[] options;
 		if (writingMode == WritingMode.APPEND) {
 			options = new StandardOpenOption[] { WRITE, CREATE, APPEND };
@@ -99,7 +99,7 @@ public interface ConfigWriter {
 	 * @param file   the file to write it to
 	 * @throws WritingException if an error occurs
 	 */
-	default void write(UnmodifiableConfig config, File file, WritingMode writingMode) {
+	public default void write(UnmodifiableConfig config, File file, WritingMode writingMode) {
 		write(config, file, writingMode, StandardCharsets.UTF_8);
 	}
 
@@ -110,7 +110,7 @@ public interface ConfigWriter {
 	 * @param file   the file to write it to
 	 * @throws WritingException if an error occurs
 	 */
-	default void write(UnmodifiableConfig config, File file, WritingMode writingMode, Charset charset) {
+	public default void write(UnmodifiableConfig config, File file, WritingMode writingMode, Charset charset) {
 		write(config, file.toPath(), writingMode, charset);
 	}
 
@@ -121,7 +121,7 @@ public interface ConfigWriter {
 	 * @param url    the url to write it to
 	 * @throws WritingException if an error occurs
 	 */
-	default void write(UnmodifiableConfig config, URL url) {
+	public default void write(UnmodifiableConfig config, URL url) {
 		URLConnection connection;
 		try {
 			connection = url.openConnection();
@@ -145,7 +145,7 @@ public interface ConfigWriter {
 	 *
 	 * @throws WritingException if an error occurs
 	 */
-	default String writeToString(UnmodifiableConfig config) {
+	public default String writeToString(UnmodifiableConfig config) {
 		CharsWrapper.Builder builder = new CharsWrapper.Builder(64);
 		write(config, builder);
 		return builder.toString();

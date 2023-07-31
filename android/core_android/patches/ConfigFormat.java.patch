@@ -20,7 +20,7 @@
  	 *
  	 * @param f the existing file to initialize
  	 */
--	default void initEmptyFile(Path f) throws IOException {
+-	public default void initEmptyFile(Path f) throws IOException {
 -		initEmptyFile(() -> Files.newBufferedWriter(f));
 -	}
 -
@@ -30,7 +30,7 @@
 -	 *
 -	 * @param f the existing file to initialize
 -	 */
- 	default void initEmptyFile(File f) throws IOException {
+ 	public default void initEmptyFile(File f) throws IOException {
 -		initEmptyFile(f.toPath());
 +		initEmptyFile(() -> new FileWriter(f));
  	}

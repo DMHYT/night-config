@@ -14,7 +14,7 @@ import java.nio.file.Path;
 /**
  * @author TheElectronWill
  */
-final class WriteSyncFileConfig<C extends Config> extends ConfigWrapper<C> implements FileConfig {
+public final class WriteSyncFileConfig<C extends Config> extends ConfigWrapper<C> implements FileConfig {
 	private final Path nioPath;
 	private final Charset charset;
 	private boolean closed;
@@ -28,7 +28,7 @@ final class WriteSyncFileConfig<C extends Config> extends ConfigWrapper<C> imple
 
 	private volatile boolean currentlyWriting = false;
 
-	WriteSyncFileConfig(C config, Path nioPath, Charset charset, ConfigWriter writer,
+	public WriteSyncFileConfig(C config, Path nioPath, Charset charset, ConfigWriter writer,
 						 WritingMode writingMode, ConfigParser<?> parser,
 						 ParsingMode parsingMode, FileNotFoundAction nefAction) {
 		super(config);

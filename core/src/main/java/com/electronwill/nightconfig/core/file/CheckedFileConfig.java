@@ -15,7 +15,7 @@ import java.util.Set;
 /**
  * @author TheElectronWill
  */
-class CheckedFileConfig extends ConfigWrapper<FileConfig> implements FileConfig {
+public class CheckedFileConfig extends ConfigWrapper<FileConfig> implements FileConfig {
 	/**
 	 * Creates a new CheckedConfig around a given configuration.
 	 * <p>
@@ -23,7 +23,7 @@ class CheckedFileConfig extends ConfigWrapper<FileConfig> implements FileConfig 
 	 *
 	 * @param config the configuration to wrap
 	 */
-	CheckedFileConfig(FileConfig config) {
+	public CheckedFileConfig(FileConfig config) {
 		super(config);
 	}
 

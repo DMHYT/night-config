@@ -16,7 +16,7 @@ import java.util.Set;
 /**
  * @author TheElectronWill
  */
-class CheckedCommentedFileConfig extends CommentedConfigWrapper<CommentedFileConfig>
+public class CheckedCommentedFileConfig extends CommentedConfigWrapper<CommentedFileConfig>
 		implements CommentedFileConfig {
 	/**
 	 * Creates a new CheckedConfig around a commented configuration.
@@ -25,7 +25,7 @@ class CheckedCommentedFileConfig extends CommentedConfigWrapper<CommentedFileCon
 	 *
 	 * @param config the configuration to wrap
 	 */
-	CheckedCommentedFileConfig(CommentedFileConfig config) {
+	public CheckedCommentedFileConfig(CommentedFileConfig config) {
 		super(config);
 	}
 

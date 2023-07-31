@@ -26,7 +26,7 @@ import java.nio.file.Path;
  */
 public class FileConfigBuilder extends GenericBuilder<Config, FileConfig> {
 
-	FileConfigBuilder(Path file, ConfigFormat<? extends Config> format) {
+	public FileConfigBuilder(Path file, ConfigFormat<? extends Config> format) {
 		super(file, format);
 	}
 

@@ -21,17 +21,17 @@ public interface ConfigFormat<C extends Config> {
 	/**
 	 * @return a writer of this config format
 	 */
-	ConfigWriter createWriter();
+	public ConfigWriter createWriter();
 
 	/**
 	 * @return a parser of this config format
 	 */
-	ConfigParser<C> createParser();
+	public ConfigParser<C> createParser();
 
 	/**
 	 * @return a config of this format
 	 */
-	default C createConfig() {
+	public default C createConfig() {
 		return createConfig(Config.getDefaultMapCreator(false));
 	}
 
@@ -40,7 +40,7 @@ public interface ConfigFormat<C extends Config> {
 	 *
 	 * @return a concurrent config of this format
 	 */
-	default C createConcurrentConfig() {
+	public default C createConcurrentConfig() {
 		return createConfig(Config.getDefaultMapCreator(true));
 	}
 
@@ -51,7 +51,7 @@ public interface ConfigFormat<C extends Config> {
 	 * @param mapCreator the map supplier for the config
 	 * @return a config of this format with the given map creator
 	 */
-	C createConfig(Supplier<Map<String, Object>> mapCreator);
+	public C createConfig(Supplier<Map<String, Object>> mapCreator);
 
 	/**
 	 * Checks if this format supports CommentedConfigs. Note that supporting CommentedConfigs
@@ -59,7 +59,7 @@ public interface ConfigFormat<C extends Config> {
 	 *
 	 * @return {@code true} iff this format supports CommentedConfigs
 	 */
-	boolean supportsComments();
+	public boolean supportsComments();
 
 	/**
 	 * Checks if this format supports the given type of value.
@@ -68,7 +68,7 @@ public interface ConfigFormat<C extends Config> {
 	 *             supports null values
 	 * @return {@code true} iff this format supports the given type
 	 */
-	default boolean supportsType(Class<?> type) {
+	public default boolean supportsType(Class<?> type) {
 		return InMemoryFormat.DEFAULT_PREDICATE.test(type);
 	}
 
@@ -77,7 +77,7 @@ public interface ConfigFormat<C extends Config> {
 	 *
 	 * @return {@code true} iff this format is only in memory.
 	 */
-	default boolean isInMemory() {
+	public default boolean isInMemory() {
 		return false;
 	}
 
@@ -87,7 +87,7 @@ public interface ConfigFormat<C extends Config> {
 	 *
 	 * @param f the existing file to initialize
 	 */
-	default void initEmptyFile(Path f) throws IOException {
+	public default void initEmptyFile(Path f) throws IOException {
 		initEmptyFile(() -> Files.newBufferedWriter(f));
 	}
 
@@ -97,7 +97,7 @@ public interface ConfigFormat<C extends Config> {
 	 *
 	 * @param f the existing file to initialize
 	 */
-	default void initEmptyFile(File f) throws IOException {
+	public default void initEmptyFile(File f) throws IOException {
 		initEmptyFile(f.toPath());
 	}
 
@@ -107,5 +107,5 @@ public interface ConfigFormat<C extends Config> {
 	 *
 	 * @param ws an objet that provides a Writer to the file.
 	 */
-	default void initEmptyFile(WriterSupplier ws) throws IOException {}
+	public default void initEmptyFile(WriterSupplier ws) throws IOException {}
 }

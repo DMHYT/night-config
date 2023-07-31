@@ -27,7 +27,7 @@ import java.nio.file.Path;
  * @author TheElectronWill
  */
 public final class CommentedFileConfigBuilder extends GenericBuilder<CommentedConfig, CommentedFileConfig> {
-	CommentedFileConfigBuilder(Path file, ConfigFormat<? extends CommentedConfig> format) {
+	public CommentedFileConfigBuilder(Path file, ConfigFormat<? extends CommentedConfig> format) {
 		super(file, format);
 	}
 

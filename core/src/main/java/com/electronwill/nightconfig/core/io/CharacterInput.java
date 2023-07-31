@@ -17,7 +17,7 @@ public interface CharacterInput {
 	 *
 	 * @return the next char, or -1 if there is no more available data
 	 */
-	int read();
+	public int read();
 
 	/**
 	 * Reads the next character, throwing an exception if there is no more available data.
@@ -26,7 +26,7 @@ public interface CharacterInput {
 	 *
 	 * @throws ParsingException if there is no more available data
 	 */
-	char readChar();
+	public char readChar();
 
 	/**
 	 * Reads the next characters, skipping some characters. Returns the next character that is not
@@ -36,7 +36,7 @@ public interface CharacterInput {
 	 * @return the next character that is not in {@code toSkip}, or -1 if there is no more available
 	 * data
 	 */
-	default int readAndSkip(char[] toSkip) {
+	public default int readAndSkip(char[] toSkip) {
 		int c;
 		do {
 			c = read();
@@ -53,7 +53,7 @@ public interface CharacterInput {
 	 *
 	 * @throws ParsingException if there is no more available data
 	 */
-	default char readCharAndSkip(char[] toSkip) {
+	public default char readCharAndSkip(char[] toSkip) {
 		char c;
 		do {
 			c = readChar();
@@ -68,7 +68,7 @@ public interface CharacterInput {
 	 * @param n the number of characters to parse
 	 * @return an array containing at most n characters, not null
 	 */
-	default CharsWrapper read(int n) {
+	public default CharsWrapper read(int n) {
 		CharsWrapper.Builder builder = new CharsWrapper.Builder(n);
 		for (int i = 0; i < n; i++) {
 			int next = read();
@@ -88,7 +88,7 @@ public interface CharacterInput {
 	 *
 	 * @throws ParsingException if there is no more available data
 	 */
-	default CharsWrapper readChars(int n) {
+	public default CharsWrapper readChars(int n) {
 		char[] chars = new char[n];
 		for (int i = 0; i < n; i++) {
 			int next = read();
@@ -109,7 +109,7 @@ public interface CharacterInput {
 	 * @return a CharsWrapper that contains all the characters parse before the stop (or the end of
 	 * the data), not null
 	 */
-	CharsWrapper readUntil(char[] stop);
+	public CharsWrapper readUntil(char[] stop);
 
 	/**
 	 * Reads all the characters until a character contained in {@code stop} is reached, and returns
@@ -120,7 +120,7 @@ public interface CharacterInput {
 	 *
 	 * @throws ParsingException if the end of the data is reached before a stop character
 	 */
-	CharsWrapper readCharsUntil(char[] stop);
+	public CharsWrapper readCharsUntil(char[] stop);
 
 	/**
 	 * Returns the next character, without moving the reading position forward. After a call to
@@ -130,7 +130,7 @@ public interface CharacterInput {
 	 *
 	 * @return the next character, or -1 if there is no more available data
 	 */
-	int peek();
+	public int peek();
 
 	/**
 	 * Returns the next (n+1)th character, without moving the reading position forward.
@@ -141,7 +141,7 @@ public interface CharacterInput {
 	 *
 	 * @throws ParsingException if there is no (n+1)th character
 	 */
-	int peek(int n);
+	public int peek(int n);
 
 	/**
 	 * Returns the next character, without moving the reading position forward. After a call to
@@ -155,7 +155,7 @@ public interface CharacterInput {
 	 *
 	 * @throws ParsingException if there is no more available data
 	 */
-	char peekChar();
+	public char peekChar();
 
 	/**
 	 * Returns the next (n+1)th character, without moving the reading position forward.
@@ -168,12 +168,12 @@ public interface CharacterInput {
 	 *
 	 * @throws ParsingException if there is no (n+1)th character
 	 */
-	char peekChar(int n);
+	public char peekChar(int n);
 
 	/**
 	 * Skips all the character that have been peeked and not parsed yet.
 	 */
-	void skipPeeks();
+	public void skipPeeks();
 
 	/**
 	 * Pushes a character back to the input, so that it will be returned by the next reading
@@ -181,5 +181,5 @@ public interface CharacterInput {
 	 *
 	 * @param c the character to push back
 	 */
-	void pushBack(char c);
+	public void pushBack(char c);
 }

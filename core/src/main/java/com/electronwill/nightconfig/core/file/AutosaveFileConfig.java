@@ -11,8 +11,8 @@ import java.util.Map;
 /**
  * @author TheElectronWill
  */
-final class AutosaveFileConfig<C extends FileConfig> extends ConfigWrapper<C> implements FileConfig {
-	AutosaveFileConfig(C config) {
+public final class AutosaveFileConfig<C extends FileConfig> extends ConfigWrapper<C> implements FileConfig {
+	public AutosaveFileConfig(C config) {
 		super(config);
 	}
 

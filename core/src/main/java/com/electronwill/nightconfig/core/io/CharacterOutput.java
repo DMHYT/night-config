@@ -11,14 +11,14 @@ public interface CharacterOutput {
 	 *
 	 * @param c the character to write
 	 */
-	void write(char c);
+	public void write(char c);
 
 	/**
 	 * Writes an array of characters.
 	 *
 	 * @param chars the characters to write
 	 */
-	default void write(char... chars) {
+	public default void write(char... chars) {
 		write(chars, 0, chars.length);
 	}
 
@@ -29,14 +29,14 @@ public interface CharacterOutput {
 	 * @param offset the index to start at
 	 * @param length the number of characters to write
 	 */
-	void write(char[] chars, int offset, int length);
+	public void write(char[] chars, int offset, int length);
 
 	/**
 	 * Writes all the characters in the given String.
 	 *
 	 * @param s the string to write
 	 */
-	default void write(String s) {
+	public default void write(String s) {
 		write(s, 0, s.length());
 	}
 
@@ -47,14 +47,14 @@ public interface CharacterOutput {
 	 * @param offset the index to start at
 	 * @param length the number of characters to write
 	 */
-	void write(String s, int offset, int length);
+	public void write(String s, int offset, int length);
 
 	/**
 	 * Writes all the characters in the given CharsWrapper.
 	 *
 	 * @param cw the CharsWrapper to write
 	 */
-	default void write(CharsWrapper cw) {
+	public default void write(CharsWrapper cw) {
 		write(cw.chars, cw.offset, cw.limit - cw.offset);
 	}
 }

@@ -12,10 +12,10 @@ import java.util.Map;
 /**
  * @author TheElectronWill
  */
-final class AutosaveCommentedFileConfig extends CommentedConfigWrapper<CommentedConfig> implements CommentedFileConfig {
+public final class AutosaveCommentedFileConfig extends CommentedConfigWrapper<CommentedConfig> implements CommentedFileConfig {
 	private final FileConfig fileConfig;
 
-	AutosaveCommentedFileConfig(CommentedConfig config, FileConfig fileConfig) {
+	public AutosaveCommentedFileConfig(CommentedConfig config, FileConfig fileConfig) {
 		super(config);
 		this.fileConfig = fileConfig;
 	}

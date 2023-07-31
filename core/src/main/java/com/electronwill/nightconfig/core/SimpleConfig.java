@@ -7,7 +7,7 @@ import java.util.function.Supplier;
  * Default concrete implementation of Config. The values are stored in a map, generally a HashMap,
  * or a ConcurrentHashMap if the config is concurrent.
  */
-final class SimpleConfig extends AbstractConfig {
+public final class SimpleConfig extends AbstractConfig {
 	private final ConfigFormat<?> configFormat;
 
 	/**
@@ -15,7 +15,7 @@ final class SimpleConfig extends AbstractConfig {
 	 *
 	 * @param configFormat the config's format
 	 */
-	SimpleConfig(ConfigFormat<?> configFormat, boolean concurrent) {
+	public SimpleConfig(ConfigFormat<?> configFormat, boolean concurrent) {
 		super(concurrent);
 		this.configFormat = configFormat;
 	}
@@ -27,7 +27,7 @@ final class SimpleConfig extends AbstractConfig {
 	 * @param map the data to use in the config
 	 * @param configFormat the config's format
 	 */
-	SimpleConfig(Map<String, Object> map, ConfigFormat<?> configFormat) {
+	public SimpleConfig(Map<String, Object> map, ConfigFormat<?> configFormat) {
 		super(map);
 		this.configFormat = configFormat;
 	}
@@ -38,7 +38,7 @@ final class SimpleConfig extends AbstractConfig {
 	 * @param mapCreator the supplier for backing maps
 	 * @param configFormat the config's format
 	 */
-	SimpleConfig(Supplier<Map<String, Object>> mapCreator, ConfigFormat<?> configFormat) {
+	public SimpleConfig(Supplier<Map<String, Object>> mapCreator, ConfigFormat<?> configFormat) {
 		super(mapCreator);
 		this.configFormat = configFormat;
 	}
@@ -50,7 +50,7 @@ final class SimpleConfig extends AbstractConfig {
 	 * @param configFormat the config's format
 	 * @param concurrent
 	 */
-	SimpleConfig(UnmodifiableConfig toCopy, ConfigFormat<?> configFormat, boolean concurrent) {
+	public SimpleConfig(UnmodifiableConfig toCopy, ConfigFormat<?> configFormat, boolean concurrent) {
 		super(toCopy, concurrent);
 		this.configFormat = configFormat;
 	}
@@ -62,7 +62,7 @@ final class SimpleConfig extends AbstractConfig {
 	 * @param mapCreator   the supplier for backing maps
 	 * @param configFormat the config's format
 	 */
-	SimpleConfig(UnmodifiableConfig toCopy, Supplier<Map<String, Object>> mapCreator, ConfigFormat<?> configFormat) {
+	public SimpleConfig(UnmodifiableConfig toCopy, Supplier<Map<String, Object>> mapCreator, ConfigFormat<?> configFormat) {
 		super(toCopy, mapCreator);
 		this.configFormat = configFormat;
 	}

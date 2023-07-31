@@ -16,27 +16,27 @@ import java.util.function.Predicate;
  *
  * @author TheElectronWill
  */
-final class AnnotationUtils {
+public final class AnnotationUtils {
 	private AnnotationUtils() {}
 
     /**
 	 * Checks if an annotated element is annotated with {@link PreserveNotNull}.
 	 */
-	static boolean isEnum(Field annotatedElement) {
+	public static boolean isEnum(Field annotatedElement) {
 		return annotatedElement.getType().isEnum() || annotatedElement.isAnnotationPresent(PreserveNotNull.class);
 	}
 
 	/**
 	 * Checks if an annotated element is annotated with {@link PreserveNotNull}.
 	 */
-	static boolean hasPreserveNotNull(AnnotatedElement annotatedElement) {
+	public static boolean hasPreserveNotNull(AnnotatedElement annotatedElement) {
 		return annotatedElement.isAnnotationPresent(PreserveNotNull.class);
 	}
 
 	/**
 	 * Checks if a field or its class is annotated with {@link PreserveNotNull}
 	 */
-	static boolean mustPreserve(Field field, Class<?> fieldClass) {
+	public static boolean mustPreserve(Field field, Class<?> fieldClass) {
 		return hasPreserveNotNull(field) || hasPreserveNotNull(fieldClass);
 	}
 
@@ -46,7 +46,7 @@ final class AnnotationUtils {
 	 *
 	 * @return the field's converter, or {@code null} if there is none
 	 */
-	static Converter<Object, Object> getConverter(Field field) {
+	public static Converter<Object, Object> getConverter(Field field) {
 		Conversion conversion = field.getAnnotation(Conversion.class);
 		if (conversion != null) {
 			try {
@@ -69,7 +69,7 @@ final class AnnotationUtils {
 	 *
 	 * @return the annotated path, if any, or the field name
 	 */
-	static List<String> getPath(Field field) {
+	public static List<String> getPath(Field field) {
 		List<String> annotatedPath = getPath((AnnotatedElement)field);
 		return (annotatedPath == null) ? Collections.singletonList(field.getName()) : annotatedPath;
 	}
@@ -79,7 +79,7 @@ final class AnnotationUtils {
 	 *
 	 * @return the annotated path, or {@code null} if there is none.
 	 */
-	static List<String> getPath(AnnotatedElement annotatedElement) {
+	public static List<String> getPath(AnnotatedElement annotatedElement) {
 		Path path = annotatedElement.getDeclaredAnnotation(Path.class);
 		if (path != null) {
 			return StringUtils.split(path.value(), '.');
@@ -96,13 +96,13 @@ final class AnnotationUtils {
 	 * <p>
 	 * The check should apply to the field's value, not the config value. That is, when
 	 * converting a field to a config value, the check should apply before the conversion
-	 * [fieldValue -> configValue] and, when converting a config value to a field, the check
-	 * should apply after the conversion [configValue -> fieldValue].
+	 * [fieldValue - configValue] and, when converting a config value to a field, the check
+	 * should apply after the conversion [configValue - fieldValue].
 	 *
 	 * @param field the field to check
 	 * @param value the field's value
 	 */
-	static void checkField(Field field, Object value) {
+	public static void checkField(Field field, Object value) {
 		//--- Misc checks ---
 		SpecNotNull specNotNull = field.getDeclaredAnnotation(SpecNotNull.class);
 		if (specNotNull != null) {

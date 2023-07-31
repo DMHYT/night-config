@@ -4,5 +4,5 @@ import java.io.IOException;
 import java.io.Writer;
 
 public interface WriterSupplier {
-	Writer get() throws IOException;
+	public Writer get() throws IOException;
 }

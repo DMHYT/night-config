@@ -3,7 +3,7 @@ package com.electronwill.nightconfig.core.utils;
 /**
  * @author TheElectronWill
  */
-abstract class AbstractObserved {
+public abstract class AbstractObserved {
 	protected final Runnable callback;
 
 	protected AbstractObserved(Runnable callback) {

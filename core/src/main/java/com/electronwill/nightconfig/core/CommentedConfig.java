@@ -23,7 +23,7 @@ public interface CommentedConfig extends UnmodifiableCommentedConfig, Config {
 	 * @param comment the comment to set
 	 * @return the old comment if any, or {@code null}
 	 */
-	default String setComment(String path, String comment) {
+	public default String setComment(String path, String comment) {
 		return setComment(split(path, '.'), comment);
 	}
 
@@ -34,7 +34,7 @@ public interface CommentedConfig extends UnmodifiableCommentedConfig, Config {
 	 * @param comment the comment to set
 	 * @return the old comment if any, or {@code null}
 	 */
-	String setComment(List<String> path, String comment);
+	public String setComment(List<String> path, String comment);
 
 	/**
 	 * Removes a comment from the config.
@@ -42,7 +42,7 @@ public interface CommentedConfig extends UnmodifiableCommentedConfig, Config {
 	 * @param path the comment's path, each part separated by a dot. Example "a.b.c"
 	 * @return the old comment if any, or {@code null}
 	 */
-	default String removeComment(String path) {
+	public default String removeComment(String path) {
 		return removeComment(split(path, '.'));
 	}
 
@@ -52,12 +52,12 @@ public interface CommentedConfig extends UnmodifiableCommentedConfig, Config {
 	 * @param path the comment's path, each element of the list is a different part of the path.
 	 * @return the old comment if any, or {@code null}
 	 */
-	String removeComment(List<String> path);
+	public String removeComment(List<String> path);
 
 	/**
 	 * Removes all the comments from the config.
 	 */
-	void clearComments();
+	public void clearComments();
 
 	/**
 	 * Puts the comments in the given map to this config. Existing comments are replaced, missing
@@ -65,7 +65,7 @@ public interface CommentedConfig extends UnmodifiableCommentedConfig, Config {
 	 *
 	 * @param comments the comments to set
 	 */
-	default void putAllComments(Map<String, CommentNode> comments) {
+	public default void putAllComments(Map<String, CommentNode> comments) {
 		for (Map.Entry<String, CommentNode> entry : comments.entrySet()) {
 			String key = entry.getKey();
 			CommentNode node = entry.getValue();
@@ -87,7 +87,7 @@ public interface CommentedConfig extends UnmodifiableCommentedConfig, Config {
 	 *
 	 * @param commentedConfig the config to copy its comments
 	 */
-	default void putAllComments(UnmodifiableCommentedConfig commentedConfig) {
+	public default void putAllComments(UnmodifiableCommentedConfig commentedConfig) {
 		for (UnmodifiableCommentedConfig.Entry entry : commentedConfig.entrySet()) {
 			String key = entry.getKey();
 			String comment = entry.getComment();
@@ -104,7 +104,7 @@ public interface CommentedConfig extends UnmodifiableCommentedConfig, Config {
 	}
 
 	@Override
-	default UnmodifiableCommentedConfig unmodifiable() {
+	public default UnmodifiableCommentedConfig unmodifiable() {
 		return new UnmodifiableCommentedConfig() {
 			@Override
 			public <T> T getRaw(List<String> path) {
@@ -158,7 +158,7 @@ public interface CommentedConfig extends UnmodifiableCommentedConfig, Config {
 		};
 	}
 
-	default CommentedConfig checked() {
+	public default CommentedConfig checked() {
 		return new CheckedCommentedConfig(this);
 	}
 
@@ -170,33 +170,33 @@ public interface CommentedConfig extends UnmodifiableCommentedConfig, Config {
 	 * the comments of their sub-elements.
 	 */
 	@Override
-	Map<String, String> commentMap();
+	public Map<String, String> commentMap();
 
 	@Override
-	Set<? extends Entry> entrySet();
+	public Set<? extends Entry> entrySet();
 
 	/**
 	 * A modifiable commented config entry.
 	 */
-	interface Entry extends Config.Entry, UnmodifiableCommentedConfig.Entry {
+	public interface Entry extends Config.Entry, UnmodifiableCommentedConfig.Entry {
 		/**
 		 * Sets the entry's comment.
 		 *
 		 * @param comment the comment to set, may contain several lines.
 		 * @return the previous comment, or {@code null} if none.
 		 */
-		String setComment(String comment);
+		public String setComment(String comment);
 
 		/**
 		 * Removes the entry's comment.
 		 *
 		 * @return the previous comment, or {@code null} if none.
 		 */
-		String removeComment();
+		public String removeComment();
 	}
 
 	@Override
-	CommentedConfig createSubConfig();
+	public CommentedConfig createSubConfig();
 
 	/**
 	 * Creates a CommentedConfig of the given format.
@@ -204,7 +204,7 @@ public interface CommentedConfig extends UnmodifiableCommentedConfig, Config {
 	 * @param format the config's format
 	 * @return a new empty config
 	 */
-	static CommentedConfig of(ConfigFormat<? extends CommentedConfig> format) {
+	public static CommentedConfig of(ConfigFormat<? extends CommentedConfig> format) {
 		return new SimpleCommentedConfig(format, false);
 	}
 	
@@ -215,7 +215,7 @@ public interface CommentedConfig extends UnmodifiableCommentedConfig, Config {
 	 * @param format the config's format
 	 * @return a new empty config
 	 */
-	static CommentedConfig of(Supplier<Map<String, Object>> mapCreator, ConfigFormat<? extends CommentedConfig> format) {
+	public static CommentedConfig of(Supplier<Map<String, Object>> mapCreator, ConfigFormat<? extends CommentedConfig> format) {
 		return new SimpleCommentedConfig(mapCreator, format);
 	}
 
@@ -225,7 +225,7 @@ public interface CommentedConfig extends UnmodifiableCommentedConfig, Config {
 	 * @param format the config's format
 	 * @return a new empty, thread-safe config
 	 */
-	static CommentedConfig ofConcurrent(ConfigFormat<? extends CommentedConfig> format) {
+	public static CommentedConfig ofConcurrent(ConfigFormat<? extends CommentedConfig> format) {
 		return new SimpleCommentedConfig(format, false);
 	}
 
@@ -234,7 +234,7 @@ public interface CommentedConfig extends UnmodifiableCommentedConfig, Config {
 	 *
 	 * @return a new empty config
 	 */
-	static CommentedConfig inMemory() {
+	public static CommentedConfig inMemory() {
 		return InMemoryCommentedFormat.defaultInstance().createConfig();
 	}
 
@@ -243,7 +243,7 @@ public interface CommentedConfig extends UnmodifiableCommentedConfig, Config {
 	 *
 	 * @return a new empty config
 	 */
-	static CommentedConfig inMemoryConcurrent() {
+	public static CommentedConfig inMemoryConcurrent() {
 		return InMemoryCommentedFormat.defaultInstance().createConcurrentConfig();
 	}
 
@@ -255,7 +255,7 @@ public interface CommentedConfig extends UnmodifiableCommentedConfig, Config {
 	 * @param format the config's format
 	 * @return a new config backed by the map
 	 */
-	static CommentedConfig wrap(Map<String, Object> map, ConfigFormat<?> format) {
+	public static CommentedConfig wrap(Map<String, Object> map, ConfigFormat<?> format) {
 		return new SimpleCommentedConfig(map, format);
 	}
 
@@ -266,7 +266,7 @@ public interface CommentedConfig extends UnmodifiableCommentedConfig, Config {
 	 * @param config the config to copy
 	 * @return a copy of the config
 	 */
-	static CommentedConfig copy(UnmodifiableConfig config) {
+	public static CommentedConfig copy(UnmodifiableConfig config) {
 		return new SimpleCommentedConfig(config, config.configFormat(), false);
 	}
 	
@@ -280,7 +280,7 @@ public interface CommentedConfig extends UnmodifiableCommentedConfig, Config {
 	 * @param mapCreator a supplier which will be called to create all backing maps for this config (including sub-configs)
 	 * @return a copy of the config
 	 */
-	static CommentedConfig copy(UnmodifiableConfig config, Supplier<Map<String, Object>> mapCreator) {
+	public static CommentedConfig copy(UnmodifiableConfig config, Supplier<Map<String, Object>> mapCreator) {
 		return new SimpleCommentedConfig(config, mapCreator, config.configFormat());
 	}
 
@@ -291,7 +291,7 @@ public interface CommentedConfig extends UnmodifiableCommentedConfig, Config {
 	 * @param format the config's format
 	 * @return a copy of the config
 	 */
-	static CommentedConfig copy(UnmodifiableConfig config, ConfigFormat<?> format) {
+	public static CommentedConfig copy(UnmodifiableConfig config, ConfigFormat<?> format) {
 		return new SimpleCommentedConfig(config, format, false);
 	}
 	
@@ -306,7 +306,7 @@ public interface CommentedConfig extends UnmodifiableCommentedConfig, Config {
 	 * @param format the config's format
 	 * @return a copy of the config
 	 */
-	static CommentedConfig copy(UnmodifiableConfig config, Supplier<Map<String, Object>> mapCreator, ConfigFormat<?> format) {
+	public static CommentedConfig copy(UnmodifiableConfig config, Supplier<Map<String, Object>> mapCreator, ConfigFormat<?> format) {
 		return new SimpleCommentedConfig(config, mapCreator, format);
 	}
 
@@ -317,7 +317,7 @@ public interface CommentedConfig extends UnmodifiableCommentedConfig, Config {
 	 * @param config the config to copy
 	 * @return a copy of the config
 	 */
-	static CommentedConfig copy(UnmodifiableCommentedConfig config) {
+	public static CommentedConfig copy(UnmodifiableCommentedConfig config) {
 		return new SimpleCommentedConfig(config, config.configFormat(), false);
 	}
 
@@ -329,7 +329,7 @@ public interface CommentedConfig extends UnmodifiableCommentedConfig, Config {
 	 * @param mapCreator a supplier which will be called to create all backing maps for this config (including sub-configs)
 	 * @return a copy of the config
 	 */
-	static CommentedConfig copy(UnmodifiableCommentedConfig config, Supplier<Map<String, Object>> mapCreator) {
+	public static CommentedConfig copy(UnmodifiableCommentedConfig config, Supplier<Map<String, Object>> mapCreator) {
 		return new SimpleCommentedConfig(config, mapCreator, config.configFormat());
 	}
 	
@@ -340,7 +340,7 @@ public interface CommentedConfig extends UnmodifiableCommentedConfig, Config {
 	 * @param format the config's format
 	 * @return a copy of the config
 	 */
-	static CommentedConfig copy(UnmodifiableCommentedConfig config, ConfigFormat<?> format) {
+	public static CommentedConfig copy(UnmodifiableCommentedConfig config, ConfigFormat<?> format) {
 		return new SimpleCommentedConfig(config, format, false);
 	}
 	
@@ -355,7 +355,7 @@ public interface CommentedConfig extends UnmodifiableCommentedConfig, Config {
 	 * @param format the config's format
 	 * @return a copy of the config
 	 */
-	static CommentedConfig copy(UnmodifiableCommentedConfig config, Supplier<Map<String, Object>> mapCreator, ConfigFormat<? extends CommentedConfig> format) {
+	public static CommentedConfig copy(UnmodifiableCommentedConfig config, Supplier<Map<String, Object>> mapCreator, ConfigFormat<? extends CommentedConfig> format) {
 		return new SimpleCommentedConfig(config, mapCreator, format);
 	}
 
@@ -366,7 +366,7 @@ public interface CommentedConfig extends UnmodifiableCommentedConfig, Config {
 	 * @param config the config to copy
 	 * @return a thread-safe copy of the config
 	 */
-	static CommentedConfig concurrentCopy(UnmodifiableConfig config) {
+	public static CommentedConfig concurrentCopy(UnmodifiableConfig config) {
 		return new SimpleCommentedConfig(config, config.configFormat(), true);
 	}
 
@@ -377,7 +377,7 @@ public interface CommentedConfig extends UnmodifiableCommentedConfig, Config {
 	 * @param format the config's format
 	 * @return a thread-safe copy of the config
 	 */
-	static CommentedConfig concurrentCopy(UnmodifiableConfig config, ConfigFormat<?> format) {
+	public static CommentedConfig concurrentCopy(UnmodifiableConfig config, ConfigFormat<?> format) {
 		return new SimpleCommentedConfig(config, format, true);
 	}
 
@@ -388,7 +388,7 @@ public interface CommentedConfig extends UnmodifiableCommentedConfig, Config {
 	 * @param config the config to copy
 	 * @return a thread-safe copy of the config
 	 */
-	static CommentedConfig concurrentCopy(UnmodifiableCommentedConfig config) {
+	public static CommentedConfig concurrentCopy(UnmodifiableCommentedConfig config) {
 		return new SimpleCommentedConfig(config, config.configFormat(), true);
 	}
 
@@ -399,7 +399,7 @@ public interface CommentedConfig extends UnmodifiableCommentedConfig, Config {
 	 * @param format the config's format
 	 * @return a thread-safe copy of the config
 	 */
-	static CommentedConfig concurrentCopy(UnmodifiableCommentedConfig config,
+	public static CommentedConfig concurrentCopy(UnmodifiableCommentedConfig config,
 										  ConfigFormat<?> format) {
 		return new SimpleCommentedConfig(config, format, true);
 	}
@@ -413,7 +413,7 @@ public interface CommentedConfig extends UnmodifiableCommentedConfig, Config {
 	 * @param config the config
 	 * @return a CommentedConfig instance backed by the specified config
 	 */
-	static CommentedConfig fake(Config config) {
+	public static CommentedConfig fake(Config config) {
 		if (config instanceof CommentedConfig) {
 			return (CommentedConfig)config;
 		}
